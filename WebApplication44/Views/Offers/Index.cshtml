@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebApplication44.Models.Offer>
+﻿@using Microsoft.AspNet.Identity;
+
+@model IEnumerable<WebApplication44.Models.Offer>
 
 @{
     ViewBag.Title = "Index";
@@ -41,41 +43,48 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descritpion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OfferId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OfferId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OfferId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descritpion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @if (item.UserID == User.Identity.GetUserId())
+                {
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OfferId }) @Html.Raw(" | ");
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OfferId }) @Html.Raw(" | ");
+                }
+
+                @Html.ActionLink("Details", "Details", new { id = item.OfferId }) |
+
+            </td>
+        </tr>
+    }
 
 </table>
